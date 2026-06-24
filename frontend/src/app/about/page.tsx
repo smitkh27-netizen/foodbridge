@@ -46,7 +46,7 @@ export default function AboutPage() {
 
       {/* Mission & Vision */}
       <section style={{ padding: '80px 24px', maxWidth: '1280px', margin: '0 auto' }}>
-        <div className="grid-2">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
           <div className="card" style={{ background: 'linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.03))', borderColor: 'rgba(34,197,94,0.2)' }}>
             <div style={{ width: '52px', height: '52px', borderRadius: '16px', background: 'rgba(34,197,94,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
               <Heart size={26} color="#22c55e" />
