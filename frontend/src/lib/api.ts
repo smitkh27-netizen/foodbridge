@@ -120,9 +120,42 @@ export const donationAPI = {
 
 export const ngoAPI = {
   getDashboard: async () => {
-    const snapshot = await getDocs(collection(db, 'donations'));
-    const total = snapshot.size;
-    return { data: { stats: { totalDonations: total, activeVolunteers: 0, peopleServed: 0 } } };
+    const user = auth.currentUser;
+    if (!user) return { data: { stats: null } };
+    
+    // Recent Assigned Donations
+    const qDonations = query(collection(db, 'donations'), where('ngoId', '==', user.uid));
+    const snapDonations = await getDocs(qDonations);
+    const myDonations = formatDocs(snapDonations).sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    
+    // Inventory
+    const qInv = query(collection(db, 'inventory'), where('ngoId', '==', user.uid));
+    const snapInv = await getDocs(qInv);
+    const inventory = formatDocs(snapInv);
+    const inventoryItems = inventory.reduce((sum: number, item: any) => sum + (parseInt(item.remainingQuantity) || 0), 0);
+
+    // Volunteers
+    const qVol = query(collection(db, 'users'), where('role', '==', 'volunteer'));
+    const snapVol = await getDocs(qVol);
+    
+    // Pending Nearby
+    const qPending = query(collection(db, 'donations'), where('status', '==', 'pending'));
+    const snapPending = await getDocs(qPending);
+    
+    return { 
+      data: { 
+        stats: { 
+          totalDonations: myDonations.length, 
+          volunteerCount: snapVol.size, 
+          pendingNearby: snapPending.size,
+          inventoryItems,
+          accepted: myDonations.filter((d: any) => ['accepted', 'assigned', 'picked_up'].includes(d.status)).length,
+          completed: myDonations.filter((d: any) => d.status === 'completed' || d.status === 'delivered').length
+        },
+        recentDonations: myDonations.slice(0, 5),
+        inventory: inventory.slice(0, 5)
+      } 
+    };
   },
   getNearbyDonations: async (params?: any) => {
     // Return all donations so the NGO can see pending ones and the ones they accepted
@@ -149,7 +182,50 @@ export const ngoAPI = {
     await addDoc(collection(db, 'inventory'), { ...data, ngoId: user.uid, addedAt: new Date().toISOString() });
     return { data: { success: true } };
   },
-  getImpactReport: async () => ({ data: {} }),
+  getImpactReport: async () => {
+    const user = auth.currentUser;
+    if (!user) return { data: { stats: null } };
+    
+    const q = query(collection(db, 'donations'), where('ngoId', '==', user.uid));
+    const snapshot = await getDocs(q);
+    const donations = formatDocs(snapshot);
+    
+    const completed = donations.filter((d: any) => d.status === 'completed' || d.status === 'delivered');
+    const totalDonations = donations.length;
+    
+    const categoryMap: any = {};
+    const monthlyMap: any = {};
+    let peopleServed = 0;
+
+    donations.forEach((d: any) => {
+      categoryMap[d.category] = (categoryMap[d.category] || 0) + 1;
+      
+      let date = new Date(d.createdAt);
+      if (d.createdAt?.seconds) date = new Date(d.createdAt.seconds * 1000);
+      if (!isNaN(date.getTime())) {
+        const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        monthlyMap[key] = (monthlyMap[key] || 0) + 1;
+      }
+      
+      if (d.category === 'food') {
+         peopleServed += (parseInt(d.quantity) || 1) * 5;
+      } else {
+         peopleServed += (parseInt(d.quantity) || 1);
+      }
+    });
+
+    return { 
+      data: { 
+        stats: { 
+          totalDonations, 
+          completedDonations: completed.length, 
+          peopleServed,
+          categoryBreakdown: Object.entries(categoryMap).map(([name, value]) => ({ name, value })),
+          monthlyTrend: Object.entries(monthlyMap).sort((a: any, b: any) => a[0].localeCompare(b[0])).map(([name, value]) => ({ name, value }))
+        } 
+      } 
+    };
+  },
 };
 
 export const volunteerAPI = {
