@@ -3,10 +3,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useState } from 'react';
 import {
   LayoutDashboard, Package, MapPin, Users, BarChart3,
   ClipboardList, Truck, Star, Settings, LogOut, Heart,
-  ShieldCheck, Bell, Boxes
+  ShieldCheck, Bell, Boxes, Menu, X
 } from 'lucide-react';
 
 const donorLinks = [
@@ -45,13 +46,22 @@ const roleColors: Record<string, string> = {
 export default function Sidebar() {
   const { user, logout } = useAuth();
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+  
   if (!user) return null;
 
   const links = roleLinks[user.role] || [];
   const color = roleColors[user.role] || '#22c55e';
 
   return (
-    <aside className="sidebar">
+    <>
+      <button className="mobile-sidebar-toggle" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      <div className={`sidebar-overlay ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(false)} />
+
+      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
       {/* Logo */}
       <div style={{ padding: '24px 20px 20px', borderBottom: '1px solid var(--border)' }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
@@ -84,7 +94,7 @@ export default function Sidebar() {
         {links.map(({ href, icon: Icon, label }) => {
           const active = pathname === href;
           return (
-            <Link key={href} href={href} className={`sidebar-link${active ? ' active' : ''}`}
+            <Link key={href} href={href} onClick={() => setIsOpen(false)} className={`sidebar-link${active ? ' active' : ''}`}
               style={active ? { color, background: `${color}18`, borderLeft: `3px solid ${color}` } : {}}>
               <Icon size={18} />
               <span>{label}</span>
@@ -95,7 +105,7 @@ export default function Sidebar() {
 
       {/* Bottom */}
       <div style={{ padding: '12px 0', borderTop: '1px solid var(--border)', marginTop: 'auto' }}>
-        <Link href="/dashboard/settings" className="sidebar-link">
+        <Link href="/dashboard/settings" onClick={() => setIsOpen(false)} className="sidebar-link">
           <Settings size={18} /><span>Settings</span>
         </Link>
         <button onClick={logout} className="sidebar-link" style={{ width: '100%', background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', textAlign: 'left' }}
@@ -105,5 +115,6 @@ export default function Sidebar() {
         </button>
       </div>
     </aside>
+    </>
   );
 }
