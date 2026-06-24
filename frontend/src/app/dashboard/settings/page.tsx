@@ -78,7 +78,7 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                   <div className="form-group">
                     <label className="input-label">Full Name</label>
                     <div style={{ position: 'relative' }}>
@@ -107,7 +107,7 @@ export default function SettingsPage() {
                 )}
 
                 {user.role === 'ngo' && (
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                  <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                     <div className="form-group" style={{ gridColumn: 'span 2' }}>
                       <label className="input-label">NGO Registered Name</label>
                       <div style={{ position: 'relative' }}>

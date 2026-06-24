@@ -57,7 +57,7 @@ export default function VolunteerPickupsPage() {
               <p style={{ color: '#334155', fontSize: '14px' }}>You have no active deliveries. Accept a request from the overview page.</p>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '20px' }}>
+            <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '20px' }}>
               {pickups.map(p => (
                 <div key={p._id} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '16px', borderLeft: p.status === 'picked_up' ? '4px solid #3b82f6' : '4px solid #8b5cf6' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>

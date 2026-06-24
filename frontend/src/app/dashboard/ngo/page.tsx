@@ -168,7 +168,7 @@ export default function NgoDashboard() {
                   <p style={{ color: 'var(--text-secondary)' }}>No available donations found.</p>
                 </div>
               ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+                <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
                   {filtered.map(d => (
                     <div key={d._id} className="card" onClick={() => setDetailsModal(d)} style={{ display: 'flex', flexDirection: 'column', gap: '16px', cursor: 'pointer', transition: 'transform 0.2s' }}
                         onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
@@ -274,7 +274,7 @@ export default function NgoDashboard() {
                 )}
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', background: 'var(--bg-card2)', padding: '20px', borderRadius: '16px' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                     <div>
                       <div style={{ color: 'var(--text-muted)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px' }}>Quantity</div>
                       <div style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{detailsModal.quantity} {detailsModal.unit}</div>

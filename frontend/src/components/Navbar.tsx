@@ -82,10 +82,10 @@ export default function Navbar() {
               )}
             </div>
           ) : (
-            <>
+            <div className="hidden-mobile" style={{ display: 'flex', gap: '12px' }}>
               <Link href="/auth/login" className="btn-outline" style={{ padding: '10px 20px', fontSize: '14px' }}>Sign In</Link>
               <Link href="/auth/register" className="btn-primary" style={{ padding: '10px 20px', fontSize: '14px' }}>Get Started</Link>
-            </>
+            </div>
           )}
           <button onClick={() => setIsOpen(!isOpen)} style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-primary)' }} className="show-mobile">
             {isOpen ? <X size={24} /> : <Menu size={24} />}

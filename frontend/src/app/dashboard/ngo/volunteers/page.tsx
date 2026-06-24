@@ -39,7 +39,7 @@ export default function NgoVolunteersPage() {
               <p style={{ color: '#334155', fontSize: '14px' }}>Wait for volunteers to register on the platform.</p>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+            <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
               {volunteers.map(v => (
                 <div key={v._id} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>

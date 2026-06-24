@@ -119,7 +119,7 @@ export default function DonatePage() {
             {step === 0 && (
               <div>
                 <h2 style={{ fontWeight: 700, fontSize: '18px', color: 'var(--text-primary)', marginBottom: '20px' }}>What are you donating?</h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '14px' }}>
+                <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '14px' }}>
                   {categories.map(cat => (
                     <button key={cat.value} onClick={() => setForm(p => ({ ...p, category: cat.value }))} type="button"
                       style={{ padding: '20px 16px', borderRadius: '16px', border: `2px solid ${form.category === cat.value ? '#22c55e' : 'var(--border)'}`, background: form.category === cat.value ? 'rgba(34,197,94,0.1)' : 'rgba(0,0,0,0.03)', cursor: 'pointer', textAlign: 'center', transition: 'all 0.2s' }}>
@@ -144,7 +144,7 @@ export default function DonatePage() {
                   <label className="input-label">Description</label>
                   <textarea name="description" value={form.description} onChange={handleChange} placeholder="Describe the items, condition, packaging, etc." className="input" rows={3} style={{ resize: 'vertical' }} />
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="form-group">
                     <label className="input-label">Quantity *</label>
                     <input name="quantity" value={form.quantity} onChange={handleChange} placeholder="e.g. 50" className="input" />
@@ -157,7 +157,7 @@ export default function DonatePage() {
                   </div>
                 </div>
                 {form.category === 'food' && (
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                     <div className="form-group">
                       <label className="input-label">Expiry / Best Before</label>
                       <input name="expiryTime" type="datetime-local" value={form.expiryTime} onChange={handleChange} className="input" />
@@ -172,7 +172,7 @@ export default function DonatePage() {
                 {/* Urgency */}
                 <div className="form-group">
                   <label className="input-label">Urgency Level</label>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '10px' }}>
+                  <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '10px' }}>
                     {urgencies.map(u => (
                       <button key={u.value} type="button" onClick={() => setForm(p => ({ ...p, urgency: u.value }))}
                         style={{ padding: '12px 8px', borderRadius: '12px', border: `2px solid ${form.urgency === u.value ? u.color : 'var(--border)'}`, background: form.urgency === u.value ? `${u.color}15` : 'transparent', cursor: 'pointer', textAlign: 'center' }}>
@@ -208,7 +208,7 @@ export default function DonatePage() {
                   )}
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="form-group">
                     <label className="input-label">Current Mobile Number *</label>
                     <input name="currentMobileNo" value={form.currentMobileNo} onChange={handleChange} placeholder="10-digit number" className="input" />
@@ -238,7 +238,7 @@ export default function DonatePage() {
                     <input name="pickupLocation.address" value={form['pickupLocation.address']} onChange={handleChange} placeholder="123 MG Road, Near City Mall" className="input" style={{ paddingLeft: '44px' }} />
                   </div>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="form-group">
                     <label className="input-label">City</label>
                     <input name="pickupLocation.city" value={form['pickupLocation.city']} onChange={handleChange} placeholder="Mumbai" className="input" />

@@ -97,7 +97,7 @@ export default function DonorHistoryPage() {
                     </div>
 
                     {/* Middle Row: Progress and Details */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', background: 'rgba(0,0,0,0.02)', padding: '16px', borderRadius: '14px' }}>
+                    <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', background: 'rgba(0,0,0,0.02)', padding: '16px', borderRadius: '14px' }}>
                       
                       <div>
                         <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '4px' }}>Pickup Location</div>

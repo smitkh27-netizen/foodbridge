@@ -66,7 +66,7 @@ export default function ImpactPage() {
         </div>
 
         {/* Impact Stats Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '48px' }}>
+        <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '48px' }}>
           {impactStats.map(s => (
             <div key={s.label} className="card-stat" style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '48px', marginBottom: '12px' }}>{s.icon}</div>
@@ -80,7 +80,7 @@ export default function ImpactPage() {
         </div>
 
         {/* Charts Row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', marginBottom: '32px' }}>
+        <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', marginBottom: '32px' }}>
           {/* Monthly Bar Chart */}
           <div className="card">
             <h2 style={{ fontWeight: 700, fontSize: '17px', color: 'var(--text-primary)', marginBottom: '24px' }}>Monthly Donation Trend</h2>

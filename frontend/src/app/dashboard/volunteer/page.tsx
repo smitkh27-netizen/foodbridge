@@ -90,7 +90,7 @@ export default function VolunteerDashboard() {
               <h2 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f97316', display: 'inline-block' }}></span> Pending Requests
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '20px' }}>
+              <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '20px' }}>
                 {dashData.pendingRequests.map((p: any) => (
                   <div key={p._id} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '16px', borderLeft: '4px solid #f97316' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -140,7 +140,7 @@ export default function VolunteerDashboard() {
               <p style={{ color: '#334155', fontSize: '14px' }}>Your NGO will assign pickups to you. Stay available!</p>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '20px' }}>
+            <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '20px' }}>
               {dashData.activePickups.map((p: any) => (
                 <div key={p._id} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>

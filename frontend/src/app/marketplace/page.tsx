@@ -195,7 +195,7 @@ export default function MarketplacePage() {
             <Link href="/auth/register?role=donor" className="btn-primary" style={{ padding: '12px 28px' }}>Be the first to donate</Link>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+          <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
             {filtered.map(d => {
               const date = safeDate(d.createdAt);
               return (

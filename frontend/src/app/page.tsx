@@ -157,7 +157,7 @@ export default function LandingPage() {
           </div>
 
           {/* Stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', maxWidth: '1000px', margin: '0 auto' }}>
+          <div className="grid-4" style={{ maxWidth: '1000px', margin: '0 auto' }}>
             {stats.map((s) => (
               <div key={s.label} className="liquid-glass-dark" style={{ borderRadius: '20px', padding: '28px 20px', textAlign: 'center' }}>
                 <div style={{ fontSize: '40px', fontWeight: 800, fontFamily: 'Outfit, sans-serif', color: s.color, marginBottom: '8px' }}>
@@ -178,7 +178,7 @@ export default function LandingPage() {
             <h2 className="section-title" style={{ marginTop: '12px', color: 'var(--text-primary)' }}>How <span className="gradient-text">FoodBridge</span> Works</h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '17px', maxWidth: '500px', margin: '0 auto' }}>Four simple steps to transform surplus into smiles</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '24px' }}>
+          <div className="grid-4">
             {howItWorks.map((item) => (
               <div key={item.step} className="card" style={{ textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: '16px', right: '20px', fontSize: '48px', fontWeight: 900, color: 'rgba(0,0,0,0.03)', fontFamily: 'Outfit, sans-serif' }}>{item.step}</div>
@@ -200,7 +200,7 @@ export default function LandingPage() {
             <span style={{ fontSize: '13px', color: '#ea580c', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px' }}>Donation Categories</span>
             <h2 className="section-title" style={{ marginTop: '12px', color: 'var(--text-primary)' }}>What Can You <span className="gradient-text-orange">Donate?</span></h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '20px' }}>
+          <div className="grid-3">
             {categories.map((cat) => (
               <div key={cat.label} className="card" style={{ display: 'flex', alignItems: 'center', gap: '20px', cursor: 'pointer' }}
                 onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = cat.color + '60'; }}
@@ -229,7 +229,7 @@ export default function LandingPage() {
             <span style={{ fontSize: '13px', color: '#0284c7', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px' }}>Community Voices</span>
             <h2 className="section-title" style={{ marginTop: '12px', color: 'var(--text-primary)' }}>Stories of <span style={{ color: '#0284c7' }}>Impact</span></h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '24px' }}>
+          <div className="grid-3">
             {testimonials.map((t) => (
               <div key={t.name} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div style={{ display: 'flex', gap: '4px' }}>
@@ -264,7 +264,7 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="section" style={{ background: 'var(--bg-card2)' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 24px' }}>
-          <div className="liquid-glass" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', borderRadius: '32px', overflow: 'hidden', padding: '0' }}>
+          <div className="liquid-glass grid-2" style={{ alignItems: 'center', borderRadius: '32px', overflow: 'hidden', padding: '0' }}>
             <div style={{ padding: '64px 48px' }}>
               <Globe size={48} color="#16a34a" style={{ marginBottom: '24px' }} />
               <h2 className="section-title" style={{ marginBottom: '16px', color: 'var(--text-primary)', textAlign: 'left' }}>Ready to Make a <span className="gradient-text">Difference?</span></h2>

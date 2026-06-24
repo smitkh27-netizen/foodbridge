@@ -168,7 +168,7 @@ function RegisterForm() {
           {/* Role Selector */}
           <div style={{ marginBottom: '24px' }}>
             <label className="input-label">I am a...</label>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '10px' }}>
+            <div className="grid-3" style={{ gap: '10px' }}>
               {roles.map(r => (
                 <button key={r.value} type="button" onClick={() => setForm(p => ({ ...p, role: r.value }))}
                   style={{ padding: '14px 8px', borderRadius: '14px', border: `2px solid ${form.role === r.value ? '#22c55e' : 'var(--border)'}`, background: form.role === r.value ? 'rgba(34,197,94,0.12)' : 'rgba(0,0,0,0.03)', cursor: 'pointer', textAlign: 'center', transition: 'all 0.2s' }}>
