@@ -18,6 +18,8 @@ export default function NgoDashboard() {
   const [stats, setStats] = useState<any>(null);
   const [donations, setDonations] = useState<any[]>([]);
   const [volunteers, setVolunteers] = useState<any[]>([]);
+  const [recentDonations, setRecentDonations] = useState<any[]>([]);
+  const [inventory, setInventory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -32,6 +34,8 @@ export default function NgoDashboard() {
           ngoAPI.getDashboard(), ngoAPI.getNearbyDonations(), usersAPI.getVolunteers()
         ]);
         setStats(dashRes.data.stats);
+        setRecentDonations(dashRes.data.recentDonations || []);
+        setInventory(dashRes.data.inventory || []);
         setDonations(donRes.data.donations || []);
         setVolunteers(volRes.data.volunteers || []);
       } catch (e) {} finally { setLoading(false); }
@@ -130,20 +134,88 @@ export default function NgoDashboard() {
           </div>
 
           {tab === 'overview' ? (
-            /* Inventory Preview */
-            <div className="card">
-              <h2 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-primary)' }}>Inventory Overview</h2>
-              {stats?.inventoryItems === 0 ? (
-                <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-secondary)' }}>
-                  <Boxes size={48} style={{ margin: '0 auto 16px', opacity: 0.3 }} />
-                  <p>No inventory yet. Accept donations to start building your inventory.</p>
+            <div className="grid-mobile-1" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+              <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <h2 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)' }}>Recent Assigned Donations</h2>
                 </div>
-              ) : (
-                <div style={{ padding: '20px', background: 'rgba(34,197,94,0.06)', borderRadius: '14px', border: '1px solid rgba(34,197,94,0.15)', textAlign: 'center' }}>
-                  <div style={{ fontSize: '48px', fontWeight: 800, color: '#22c55e', fontFamily: 'Outfit, sans-serif' }}>{stats?.inventoryItems}</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Total items in inventory</div>
+                {loading ? (
+                  <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-secondary)' }}>Loading...</div>
+                ) : recentDonations.length === 0 ? (
+                  <div style={{ padding: '60px', textAlign: 'center' }}>
+                    <CheckCircle2 size={48} color="var(--border)" style={{ margin: '0 auto 16px' }} />
+                    <p style={{ color: 'var(--text-secondary)' }}>You haven't accepted any donations yet.</p>
+                  </div>
+                ) : (
+                  <div className="table-wrapper" style={{ borderRadius: 0, border: 'none' }}>
+                    <table>
+                      <thead>
+                        <tr><th>Donation</th><th>Category</th><th>Volunteer</th><th>Status</th></tr>
+                      </thead>
+                      <tbody>
+                        {recentDonations.map(d => (
+                          <tr key={d._id}>
+                            <td>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <span style={{ fontSize: '20px' }}>{categoryIcon[d.category] || '📦'}</span>
+                                <div>
+                                  <div style={{ fontWeight: 600, fontSize: '14px' }}>{d.title}</div>
+                                  <div style={{ color: 'var(--text-secondary)', fontSize: '12px' }}>{d.quantity} {d.unit}</div>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span className="badge badge-gray" style={{ textTransform: 'capitalize' }}>{d.category}</span></td>
+                            <td>
+                              {d.assignedVolunteer ? (
+                                <div style={{ fontSize: '13px', fontWeight: 500 }}>{d.assignedVolunteer.name}</div>
+                              ) : (
+                                <span style={{ fontSize: '12px', color: '#f97316' }}>Pending Assignment</span>
+                              )}
+                            </td>
+                            <td>
+                              <span className={`badge ${d.status === 'completed' ? 'badge-green' : d.status === 'assigned' ? 'badge-purple' : 'badge-blue'}`}>
+                                {d.status.replace('_', ' ')}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div className="card">
+                  <h2 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-primary)' }}>Inventory Overview</h2>
+                  {stats?.inventoryItems === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '20px', color: 'var(--text-secondary)' }}>
+                      <Boxes size={36} style={{ margin: '0 auto 12px', opacity: 0.3 }} />
+                      <p style={{ fontSize: '14px' }}>No inventory yet. Accept donations to start building your inventory.</p>
+                    </div>
+                  ) : (
+                    <>
+                      <div style={{ padding: '20px', background: 'rgba(34,197,94,0.06)', borderRadius: '14px', border: '1px solid rgba(34,197,94,0.15)', textAlign: 'center', marginBottom: '16px' }}>
+                        <div style={{ fontSize: '40px', fontWeight: 800, color: '#22c55e', fontFamily: 'Outfit, sans-serif' }}>{stats?.inventoryItems}</div>
+                        <div style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Total items in inventory</div>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        {inventory.slice(0, 3).map(item => (
+                          <div key={item._id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px', background: 'var(--bg-card2)', borderRadius: '8px', fontSize: '14px' }}>
+                            <span style={{ fontWeight: 500 }}>{item.itemName}</span>
+                            <span style={{ color: '#22c55e', fontWeight: 700 }}>{item.remainingQuantity} left</span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
-              )}
+
+                <div className="card" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.1), rgba(168,85,247,0.1))', borderColor: 'rgba(14,165,233,0.2)' }}>
+                  <h3 style={{ fontWeight: 700, fontSize: '16px', color: 'var(--text-primary)', marginBottom: '8px' }}>Manage Volunteers</h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '13px', lineHeight: 1.6 }}>You currently have {stats?.volunteerCount || 0} active volunteers ready to deliver donations.</p>
+                </div>
+              </div>
             </div>
           ) : (
             /* Available Donations */
