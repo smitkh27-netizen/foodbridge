@@ -62,13 +62,13 @@ export default function Footer() {
             <h4 style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: '16px', marginBottom: '24px' }}>Contact</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <li style={{ display: 'flex', gap: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>
-                <Mail size={18} color="#16a34a" /> support@foodbridge.in
+                <Mail size={18} color="#16a34a" /> smitkh27@gmail.com
               </li>
               <li style={{ display: 'flex', gap: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>
                 <Phone size={18} color="#16a34a" /> +91 98765 43210
               </li>
               <li style={{ display: 'flex', gap: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>
-                <MapPin size={18} color="#16a34a" /> Andheri East, Mumbai, MH
+                <MapPin size={18} color="#16a34a" /> Vadodara, Guj
               </li>
             </ul>
           </div>
